@@ -1,0 +1,8 @@
+#Kibana API URL endpoint
+KIBANA_HTTP_URL_ENDPOINT: 'https://kibana.bla'
+# Kibana http authorization base64encoded: user:pass
+KIBANA_HTTP_BASIC_AUTH: 'blabla'
+#Kibana Index prefix
+KIBANA_INDEX_PREFIX: 'index-app-'
+# Kibana search key used on counter
+KIBANA_ROUTING_KEY: 'routing.key.used.on.searchquery'

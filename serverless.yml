@@ -1,0 +1,35 @@
+service: ops-csbe
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs8.10
+  memorySize: 256
+  region: eu-central-1
+
+functions:
+  # Logging: serverless logs -f opsKibanaCancelByTimeOut -t
+  # Test: serverless invoke local -f opsKibanaCancelByTimeOut --data '{"pathParameters":{"seconds":"600", "threshold":"20"}}'
+  opsKibanaCancelByTimeOut:
+    handler: handlerOpsKibana.cancelByTimeOut
+    environment:
+      KIBANA_HTTP_URL_ENDPOINT: ${file(./config/${self:provider.stage}.yml):KIBANA_HTTP_URL_ENDPOINT}
+      KIBANA_HTTP_BASIC_AUTH: ${file(./config/${self:provider.stage}.yml):KIBANA_HTTP_BASIC_AUTH}
+      KIBANA_INDEX_PREFIX: ${file(./config/${self:provider.stage}.yml):KIBANA_INDEX_PREFIX}
+      KIBANA_ROUTING_KEY: ${file(./config/${self:provider.stage}.yml):KIBANA_ROUTING_KEY}
+    events:
+      - http:
+          path: ops/kibana/cancelbytimeout/{seconds}/{threshold}
+          method: get
+          cors: true
+  # Logging: serverless logs -f opsDnsAResolver -t
+  # Test: serverless invoke local -f opsDnsAResolver --data '{"pathParameters":{"server":"int-csbe.bmwgroup.de"}}'
+  opsDnsAResolver:
+    handler: handlerOpsDns.AResolver
+    events:
+      - http:
+          path: ops/dns/aresolver/{server}
+          method: get
+          cors: true
