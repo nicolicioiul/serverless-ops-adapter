@@ -1,1 +1,1 @@
-# serverless-ops-monitor
+# serverless-ops-adapter
