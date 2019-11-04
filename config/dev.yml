@@ -6,3 +6,6 @@ KIBANA_HTTP_BASIC_AUTH: 'blabla'
 KIBANA_INDEX_PREFIX: 'index-app-'
 # Kibana search key used on counter
 KIBANA_ROUTING_KEY: 'routing.key.used.on.searchquery'
+# Kibana search key used search cancel by timeout and the vins
+KIBANA_VEHICLES_ROUTING_KEY: 'mda.v1'
+KIBANA_VEHICLE_INDEX_PREFIX: 'blabla-app-' 
